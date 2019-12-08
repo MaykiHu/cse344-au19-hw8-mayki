@@ -1,0 +1,13 @@
+USE geo;
+
+SELECT mountains.name as mountain, 
+    mountains.height as height,
+    countries.cCode as country_code, 
+    countries.name as country_name
+FROM (SELECT m.name, m.height, mCode
+               FROM geo.world x, x.mondial.mountain m, 
+                   split(m.`-country`, " ") as mCode) as mountains, 
+             (SELECT c.`-car_code` as cCode, c.name
+              FROM geo.world x, x.mondial.country c) as countries
+WHERE mountains.mCode = countries.cCode
+ORDER BY height DESC;
